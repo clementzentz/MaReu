@@ -1,41 +1,50 @@
 package clement.zentz.mareu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import clement.zentz.mareu.adapters.RecyclerViewAdapter;
-import clement.zentz.mareu.di.DI;
 import clement.zentz.mareu.models.Reunion;
-import clement.zentz.mareu.service.ReunionApiService;
+import clement.zentz.mareu.viewmodels.ReunionViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Reunion> mReunionList = new ArrayList<>();
-    private ReunionApiService mReunionApiService = DI.getReunionApiService();
-
-    private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mRecyclerViewAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+
+    private ReunionViewModel mReunionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mReunionList = mReunionApiService.getReunions();
+        mReunionViewModel = ViewModelProviders.of(this).get(ReunionViewModel.class);
 
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mReunionList, this);
+        mReunionViewModel.init();
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        mReunionViewModel.getReunions().observe(this, new Observer<List<Reunion>>() {
+            @Override
+            public void onChanged(List<Reunion> reunions) {
+                mRecyclerViewAdapter.notifyDataSetChanged();
+            }
+        });
+
+        iniRecyclerView();
+    }
+
+    private void iniRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerViewAdapter = new RecyclerViewAdapter(mReunionViewModel.getReunions().getValue(), this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(mRecyclerViewAdapter);
     }
 }
