@@ -1,39 +1,73 @@
 package clement.zentz.mareu.models;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Reunion {
-    private int id;
-    private Date hour;
+public class Reunion implements Serializable {
+    private String id;
+    private String dateReunion;
     private String lieuDeReunion;
     private String sujetReunion;
-    private String emailParticipants;
+    private String email;
+    private boolean mIsNewReunion;
 
-    public Reunion(int id, Date hour, String lieuDeReunion, String sujetReunion, String emailParticipants) {
+    public Reunion(String id, String dateReunion, String lieuDeReunion, String sujetReunion, String email, boolean isNewReunion) {
         this.id = id;
-        this.hour = hour;
+        this.dateReunion = dateReunion;
         this.lieuDeReunion = lieuDeReunion;
         this.sujetReunion = sujetReunion;
-        this.emailParticipants = emailParticipants;
+        this.email = email;
+        this.mIsNewReunion = isNewReunion;
     }
 
-    public int getId() {
+    public Reunion(){
+
+    }
+
+    public String getId() {
         return id;
     }
 
-    public Date getHour() {
-        return hour;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDateReunion() {
+        return dateReunion;
+    }
+
+    public void setDateReunion(String dateReunion) {
+        this.dateReunion = dateReunion;
     }
 
     public String getLieuDeReunion() {
         return lieuDeReunion;
     }
 
+    public void setLieuDeReunion(String lieuDeReunion) {
+        this.lieuDeReunion = lieuDeReunion;
+    }
+
     public String getSujetReunion() {
         return sujetReunion;
     }
 
-    public String getEmailParticipant() {
-        return emailParticipants;
+    public void setSujetReunion(String sujetReunion) {
+        this.sujetReunion = sujetReunion;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isNewReunion() {
+        return mIsNewReunion;
+    }
+
+    public void setIsNewReunion(boolean newReunion) {
+        mIsNewReunion = newReunion;
     }
 }

@@ -1,43 +1,59 @@
 package clement.zentz.mareu.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import clement.zentz.mareu.ActivityToRVAdapter;
 import clement.zentz.mareu.R;
 import clement.zentz.mareu.models.Reunion;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<Reunion> lesReunions = new ArrayList<>();
-    private Context mContext;
+    private List<Reunion> lesReunions;
 
-    public RecyclerViewAdapter(List<Reunion> lesReunions, Context context) {
+    private ActivityToRVAdapter mActivityToRVAdapter;
+
+    public RecyclerViewAdapter(List<Reunion> lesReunions, ActivityToRVAdapter anInterface ) {
         this.lesReunions = lesReunions;
-        mContext = context;
+        mActivityToRVAdapter = anInterface;
     }
 
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reunion_fragment, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reunion_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, final int position) {
         holder.infoReunion.setText(lesReunions.get(position).getSujetReunion());
-        holder.emailOrganisateur.setText(lesReunions.get(position).getEmailParticipant());
+        holder.emailOrganisateur.setText(lesReunions.get(position).getEmail());
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityToRVAdapter.launchMyActivity(lesReunions.get(position), position);
+            }
+        });
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityToRVAdapter.callDeleteReunion(lesReunions.get(position));
+            }
+        });
     }
 
     @Override
@@ -45,16 +61,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return lesReunions.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
        private ImageView couleurReunion;
        private TextView infoReunion;
        private TextView emailOrganisateur;
+       private ImageButton deleteButton;
+       View mView;
 
-       public ViewHolder(@NonNull View itemView) {
+       ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.couleurReunion = itemView.findViewById(R.id.color_reu);
             this.infoReunion = itemView.findViewById(R.id.name_meeting);
             this.emailOrganisateur = itemView.findViewById(R.id.email_organisateur);
+            this.deleteButton = itemView.findViewById(R.id.delete_btn);
+
+            ButterKnife.bind(this, itemView);
+            mView = itemView;
         }
     }
 }
