@@ -84,7 +84,7 @@ public class ManageReunionActivity extends AppCompatActivity {
     private void getInputsEditText(){
         mReunion.setId(idReunion_txt.getText().toString());
         mReunion.setDateReunion(dateReunion_txt.getText().toString());
-        mReunion.setLieuDeReunion(lieuReunion_txt.getText().toString());
+        mReunion.setLieuReunion(lieuReunion_txt.getText().toString());
         mReunion.setSujetReunion(sujetReunion_txt.getText().toString());
         mReunion.setEmail(emailReunion_txt.getText().toString());
     }
@@ -94,7 +94,7 @@ public class ManageReunionActivity extends AppCompatActivity {
             mReunion = (Reunion)getIntent().getSerializableExtra("UPDATE_REUNION");
             idReunion_txt.setText(mReunion.getId());
             dateReunion_txt.setText(mReunion.getDateReunion());
-            lieuReunion_txt.setText(mReunion.getLieuDeReunion());
+            lieuReunion_txt.setText(mReunion.getLieuReunion());
             sujetReunion_txt.setText(mReunion.getSujetReunion());
             emailReunion_txt.setText(mReunion.getEmail());
 
