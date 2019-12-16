@@ -47,7 +47,7 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
 
        mReunions = mReunionApiService.getReunions();
 
-        iniRecyclerView(mReunions);
+        initRecyclerView(mReunions);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +73,7 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
             @Override
             public void onClick(View v) {
                 Collections.sort(mReunions, new ComparatorDateReu());
-                iniRecyclerView(mReunions);
+                initRecyclerView(mReunions);
             }
         });
 
@@ -82,14 +82,13 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
             @Override
             public void onClick(View v) {
                 Collections.sort(mReunions, new ComparatorLieuReu());
-                iniRecyclerView(mReunions);
+                initRecyclerView(mReunions);
             }
         });
     }
 
-    private void iniRecyclerView(List<Reunion> reunions){
+    private void initRecyclerView(List<Reunion> reunions){
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerViewAdapter = new RecyclerViewAdapter(reunions, this);
         recyclerView.setLayoutManager(layoutManager);
@@ -140,6 +139,11 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
     }
 
+    //datepicker
+    // on create menu options
+    //enlever la deuxième toolbar
+    //remettre la liste par défault
+
     public class ComparatorDateReu implements Comparator<Reunion> {
         @Override
         public int compare(Reunion o1, Reunion o2) {
@@ -151,6 +155,13 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         @Override
         public int compare(Reunion o1, Reunion o2) {
             return o1.getLieuReunion().compareTo(o2.getLieuReunion());
+        }
+    }
+
+    public class ComparatorIdReu implements Comparator<Reunion> {
+        @Override
+        public int compare(Reunion o1, Reunion o2) {
+            return o1.getId().compareTo(o2.getId());
         }
     }
 }

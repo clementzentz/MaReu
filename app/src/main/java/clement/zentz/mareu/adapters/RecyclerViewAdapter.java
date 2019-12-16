@@ -71,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
        ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.couleurReunion = itemView.findViewById(R.id.color_reu);
-            this.infoReunion = itemView.findViewById(R.id.name_meeting);
+            this.infoReunion = itemView.findViewById(R.id.sujetReu_txt);
             this.emailOrganisateur = itemView.findViewById(R.id.email_organisateur);
             this.deleteButton = itemView.findViewById(R.id.delete_btn);
 

@@ -5,14 +5,16 @@ import java.io.Serializable;
 public class Reunion implements Serializable {
     private String id;
     private String dateReunion;
+    private String heureReunion;
     private String lieuReunion;
     private String sujetReunion;
     private String email;
     private boolean mIsNewReunion;
 
-    public Reunion(String id, String dateReunion, String lieuReunion, String sujetReunion, String email, boolean isNewReunion) {
+    public Reunion(String id, String heureReunion, String dateReunion, String lieuReunion, String sujetReunion, String email, boolean isNewReunion) {
         this.id = id;
         this.dateReunion = dateReunion;
+        this.heureReunion = heureReunion;
         this.lieuReunion = lieuReunion;
         this.sujetReunion = sujetReunion;
         this.email = email;
@@ -37,6 +39,14 @@ public class Reunion implements Serializable {
 
     public void setDateReunion(String dateReunion) {
         this.dateReunion = dateReunion;
+    }
+
+    public String getHeureReunion() {
+        return heureReunion;
+    }
+
+    public void setHeureReunion(String heureReunion) {
+        this.heureReunion = heureReunion;
     }
 
     public String getLieuReunion() {

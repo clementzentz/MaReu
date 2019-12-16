@@ -66,18 +66,11 @@
             android:hint="identifiant reunion"/>
 
         <EditText
-            android:id="@+id/dateReunion_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/idReunion_txt"
-            android:hint="date reunion"/>
-
-        <EditText
             android:id="@+id/lieuReunion_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/dateReunion_txt"
-            android:hint="lieu reunion"/>
+            android:hint="lieu reunion"
+            app:layout_constraintTop_toBottomOf="@id/idReunion_txt"/>
 
         <EditText
             android:id="@+id/sujetReunion_txt"
@@ -93,14 +86,38 @@
             app:layout_constraintTop_toBottomOf="@id/sujetReunion_txt"
             android:hint="email organisateur"/>
 
+        <TextView
+            android:id="@+id/openDialogTP_txt"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="open time picker."
+            app:layout_constraintTop_toBottomOf="@+id/emailReunion_txt"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:textAlignment="viewStart"/>
+
+        <TextView
+            android:id="@+id/openDialogDP_txt"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/emailReunion_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="20sp"
+            android:text="open date picker."
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="15dp"
+            android:textAlignment="viewEnd"/>
+
         <Button
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="ajouter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/emailReunion_txt"
+            app:layout_constraintTop_toBottomOf="@id/openDialogDP_txt"
             android:background="@color/colorPrimary"
             android:textColor="#ffff"/>
 
@@ -109,9 +126,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="update"
-            app:layout_constraintTop_toBottomOf="@+id/emailReunion_txt"
+            app:layout_constraintTop_toBottomOf="@+id/openDialogDP_txt"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:background="@color/colorPrimary"
             android:textColor="#ffff"/>
 
