@@ -3,13 +3,13 @@ package clement.zentz.mareu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +27,8 @@ import clement.zentz.mareu.service.ReunionApiService;
 public class ReunionActivity extends AppCompatActivity implements ActivityToRVAdapter {
 
     private RecyclerViewAdapter mRecyclerViewAdapter;
+
+    private RecyclerView mRecyclerView;
 
     private ReunionApiService mReunionApiService;
 
@@ -47,6 +49,8 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
 
        mReunions = mReunionApiService.getReunions();
 
+        mRecyclerView = findViewById(R.id.recyclerView);
+
         initRecyclerView(mReunions);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
@@ -58,41 +62,40 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
                 startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
             }
         });
+    }
 
-        ConstraintLayout sortButtonContainer = findViewById(R.id.sort_container);
-        ImageButton sortButtonMenu = findViewById(R.id.sort_button_menu);
-        sortButtonMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortButtonContainer.setVisibility(View.VISIBLE);
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
 
-        Button sortDateReunionBtn = findViewById(R.id.sort_dateReu_btn);
-        sortDateReunionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item1:
+                Collections.sort(mReunions, new ComparatorIdReu());
+                initRecyclerView(mReunions);
+                return true;
+            case R.id.item2:
                 Collections.sort(mReunions, new ComparatorDateReu());
                 initRecyclerView(mReunions);
-            }
-        });
-
-        Button sortLieuReunionBtn = findViewById(R.id.sort_lieuReu_btn);
-        sortLieuReunionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                return true;
+            case R.id.item3:
                 Collections.sort(mReunions, new ComparatorLieuReu());
                 initRecyclerView(mReunions);
-            }
-        });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initRecyclerView(List<Reunion> reunions){
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerViewAdapter = new RecyclerViewAdapter(reunions, this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
     @Override
@@ -139,11 +142,6 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
     }
 
-    //datepicker
-    // on create menu options
-    //enlever la deuxième toolbar
-    //remettre la liste par défault
-
     public class ComparatorDateReu implements Comparator<Reunion> {
         @Override
         public int compare(Reunion o1, Reunion o2) {
@@ -161,7 +159,7 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
     public class ComparatorIdReu implements Comparator<Reunion> {
         @Override
         public int compare(Reunion o1, Reunion o2) {
-            return o1.getId().compareTo(o2.getId());
+            return Integer.compare(o1.getId(), o2.getId());
         }
     }
 }

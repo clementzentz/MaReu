@@ -26,18 +26,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/title_reunion"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="Reunion A"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:gravity="center_vertical"
-                android:textColor="#ffff"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -63,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/welcome_text"
+            android:inputType="number"
             android:hint="identifiant reunion"/>
 
         <EditText
@@ -117,7 +106,7 @@
             android:layout_marginTop="15dp"
             android:text="ajouter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/openDialogDP_txt"
+            app:layout_constraintTop_toBottomOf="@id/openDialogTP_txt"
             android:background="@color/colorPrimary"
             android:textColor="#ffff"/>
 

@@ -106,7 +106,7 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     }
 
     private void getInputsEditText(){
-        mReunion.setId(idReunionEditText.getText().toString());
+        mReunion.setId(Integer.parseInt(idReunionEditText.getText().toString()));
         mReunion.setHeureReunion(mDisplayTimePicker.getText().toString());
         mReunion.setDateReunion(mDisplayDatePicker.getText().toString());
         mReunion.setLieuReunion(lieuReunionEditText.getText().toString());
@@ -117,7 +117,7 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     private void getIncomingIntent(){
         if (getIntent().hasExtra("UPDATE_REUNION")){
             mReunion = (Reunion)getIntent().getSerializableExtra("UPDATE_REUNION");
-            idReunionEditText.setText(mReunion.getId());
+            idReunionEditText.setText(String.valueOf(mReunion.getId()));
             mDisplayTimePicker.setText(mReunion.getHeureReunion());
             mDisplayDatePicker.setText(mReunion.getDateReunion());
             lieuReunionEditText.setText(mReunion.getLieuReunion());
