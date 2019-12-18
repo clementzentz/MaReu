@@ -12,9 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            app:layout_constraintTop_toBottomOf="@+id/reunion_toolbar"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:background="@android:color/darker_gray" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -22,6 +21,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:src="@drawable/ic_add_circle_red_24dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
