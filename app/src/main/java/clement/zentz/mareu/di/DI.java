@@ -8,9 +8,10 @@ public class DI {
     private static ReunionApiService service = new FakeReunionApiService();
 
     public static ReunionApiService getReunionApiService() {
-        if (service == null){
-            service = new FakeReunionApiService();
-        }
         return service;
+    }
+
+    public static ReunionApiService getNewInstanceApiService(){
+        return new FakeReunionApiService();
     }
 }
