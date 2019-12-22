@@ -45,15 +45,15 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion);
 
-       mReunionApiService = DI.getReunionApiService();
+        mReunionApiService = DI.getReunionApiService();
 
-       mReunions = mReunionApiService.getReunions();
+        getReunionsFromService();
 
         mRecyclerView = findViewById(R.id.recyclerView);
 
         initRecyclerView(mReunions);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+        FloatingActionButton floatingActionButton = findViewById(R.id.addReu_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +62,10 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
                 startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
             }
         });
+    }
+
+    private void getReunionsFromService(){
+        mReunions = mReunionApiService.getReunions();
     }
 
     @Override
@@ -119,18 +123,21 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
     @Override
     public void callAddReunion(Reunion reunion){
         mReunionApiService.addReunion(reunion);
+        getReunionsFromService();
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void callDeleteReunion(Reunion reunion){
         mReunionApiService.deleteReunion(reunion);
+        getReunionsFromService();
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void callUpdateReunion(Reunion reunion, int indexReunion) {
         mReunionApiService.updateReunion(reunion, indexReunion);
+        getReunionsFromService();
         mRecyclerViewAdapter.notifyItemChanged(indexReunion);
     }
 

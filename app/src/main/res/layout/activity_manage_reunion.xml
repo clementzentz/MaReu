@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/manageReu_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,7 +26,7 @@
                 android:text="veuillez entrer les informations concernant la reunion que que souhaitez ajouter : "/>
 
             <EditText
-                android:id="@+id/idReunion_txt"
+                android:id="@+id/idReunion_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/welcome_text"
@@ -33,17 +34,17 @@
                 android:hint="identifiant reunion"/>
 
             <EditText
-                android:id="@+id/sujetReunion_txt"
+                android:id="@+id/sujetReunion_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/idReunion_txt"
+                app:layout_constraintTop_toBottomOf="@id/idReunion_edt"
                 android:hint="sujet reunion"/>
 
             <EditText
-                android:id="@+id/emailReunion_txt"
+                android:id="@+id/emailReunion_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/sujetReunion_txt"
+                app:layout_constraintTop_toBottomOf="@id/sujetReunion_edt"
                 android:hint="email organisateur"/>
 
             <TextView
@@ -54,7 +55,7 @@
                 android:text="lieux reunion : "
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emailReunion_txt"
+                app:layout_constraintTop_toBottomOf="@id/emailReunion_edt"
                 android:layout_marginTop="10dp"/>
 
             <Spinner
@@ -62,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="lieu reunion"
-                app:layout_constraintTop_toBottomOf="@id/emailReunion_txt"
+                app:layout_constraintTop_toBottomOf="@id/emailReunion_edt"
                 app:layout_constraintBottom_toBottomOf="@id/lieuReu_txt"
                 app:layout_constraintStart_toEndOf="@id/lieuReu_txt"
                 android:layout_marginStart="5dp"
@@ -94,7 +95,7 @@
                 android:textAlignment="viewEnd"/>
 
             <Button
-                android:id="@+id/add_btn"
+                android:id="@+id/addReu_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -105,7 +106,7 @@
                 android:textColor="#ffff"/>
 
             <Button
-                android:id="@+id/update_btn"
+                android:id="@+id/updateReu_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="update"

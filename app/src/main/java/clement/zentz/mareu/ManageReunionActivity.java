@@ -102,15 +102,15 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     }
 
     private void initViews() {
-        idReunionEditText = findViewById(R.id.idReunion_txt);
+        idReunionEditText = findViewById(R.id.idReunion_edt);
         mDisplayTimePicker = findViewById(R.id.openDialogTP_txt);
         mDisplayDatePicker = findViewById(R.id.openDialogDP_txt);
         lieuReunionSpinner = findViewById(R.id.lieuReunion_spinner);
-        sujetReunionEditText = findViewById(R.id.sujetReunion_txt);
-        emailReunionEditText = findViewById(R.id.emailReunion_txt);
+        sujetReunionEditText = findViewById(R.id.sujetReunion_edt);
+        emailReunionEditText = findViewById(R.id.emailReunion_edt);
 
-        addReunionBtn = findViewById(R.id.add_btn);
-        updateReunionBtn = findViewById(R.id.update_btn);
+        addReunionBtn = findViewById(R.id.addReu_btn);
+        updateReunionBtn = findViewById(R.id.updateReu_btn);
     }
 
     private void getUserInputs(){
