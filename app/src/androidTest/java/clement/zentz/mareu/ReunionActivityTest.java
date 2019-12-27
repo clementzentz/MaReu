@@ -40,40 +40,41 @@ public class ReunionActivityTest {
 
    @Test
     public void reunionRecyclerViewList_shouldNotBeEmpty(){
-        onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(hasMinimumChildCount(1)));
-   }
-
-   @Test
-   public void reunionRV_deleteReunion_shouldRemoveOneItem(){
-       onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(isDisplayed()));
-       onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteViewAction()));
-       onView(withId(R.id.recyclerView)).check(withItemCount(ITEM_COUNT - 1));
-   }
-
-   @Test
-   public void reunionActivity_addNewReunion_shouldAddOneReunion(){
-       onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(isDisplayed()));
-       onView(withId(R.id.addReu_fab)).perform(ViewActions.click());
-       onView(withId(R.id.manageReu_container)).check(matches(isDisplayed()));
-       onView(withId(R.id.idReunion_edt)).perform(typeText("0"));
-       onView(withId(R.id.sujetReunion_edt)).perform(typeText("Android"));
-       onView(withId(R.id.emailReunion_edt)).perform(typeText("curie@gmail.com"));
-       onView(withId(R.id.lieuReunion_spinner)).perform(click());
-       onData(anything()).atPosition(0).perform(click());
-       onView(withId(R.id.lieuReunion_spinner)).check(matches(withSpinnerText(containsString("Laboratoire"))));
-//       onView(withId(R.id.addReu_btn)).perform(ViewActions.click());
-//       onView(withId(R.id.recyclerView)).check(withItemCount(ITEM_COUNT+1));
+        onView(withId(R.id.recyclerView)).check(matches(hasMinimumChildCount(1)));
    }
 
    @Test
     public void reunionRV_clickOnItem_shouldDisplayCorrectReunionDatas(){
-       onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(isDisplayed()));
-       onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-       onView(ViewMatchers.withId(R.id.manageReu_container)).check(matches(isDisplayed()));
+       onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
+       onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+       onView(withId(R.id.manageReu_container)).check(matches(isDisplayed()));
        onView(withId(R.id.idReunion_edt)).check(matches(withText("0")));
        onView(withId(R.id.sujetReunion_edt)).check(matches(withText("kotlin")));
        onView(withId(R.id.emailReunion_edt)).check(matches(withText("clement@gmail.com")));
    }
+
+    @Test
+    public void reunionRV_deleteReunion_shouldRemoveOneItem(){
+        onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, new DeleteViewAction()));
+        onView(withId(R.id.recyclerView)).check(withItemCount(ITEM_COUNT - 1));
+    }
+
+    @Test
+    public void reunionActivity_addNewReunion_shouldAddOneReunion(){
+        onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(isDisplayed()));
+        onView(withId(R.id.addReu_fab)).perform(ViewActions.click());
+        onView(withId(R.id.manageReu_container)).check(matches(isDisplayed()));
+        onView(withId(R.id.idReunion_edt)).perform(typeText("0"));
+        onView(withId(R.id.sujetReunion_edt)).perform(typeText("Android"));
+        onView(withId(R.id.emailReunion_edt)).perform(typeText("curie@gmail.com"));
+        onView(withId(R.id.lieuReunion_spinner)).perform(click());
+        onData(anything()).atPosition(0).perform(click());
+        closeSoftKeyboard();
+        onView(withId(R.id.lieuReunion_spinner)).check(matches(withSpinnerText(containsString("Laboratoire"))));
+        onView(withId(R.id.addReu_btn)).perform(click());
+        onView(withId(R.id.recyclerView)).check(withItemCount(ITEM_COUNT));
+    }
 
    @Test
    public void reunionActivity_UpdateOldReunion_shouldUpdateData(){
