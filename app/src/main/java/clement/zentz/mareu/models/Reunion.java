@@ -80,4 +80,8 @@ public class Reunion implements Serializable {
     public void setIsNewReunion(boolean newReunion) {
         mIsNewReunion = newReunion;
     }
+
+    public String generateTitleReu(){
+        return sujetReunion+" - "+heureReunion+" - "+email.substring(0, email.indexOf("@"));
+    }
 }

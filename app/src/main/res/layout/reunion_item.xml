@@ -29,17 +29,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textSize="23sp"
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@id/color_reu"
         app:layout_constraintTop_toTopOf="@id/color_reu"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="10dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/email_organisateur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="e-mail"
-        android:textSize="15sp"
+        android:textSize="17sp"
         app:layout_constraintTop_toBottomOf="@id/sujetReu_txt"
         app:layout_constraintStart_toEndOf="@id/color_reu"
         android:layout_marginStart="10dp"/>

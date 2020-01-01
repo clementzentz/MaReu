@@ -2,14 +2,13 @@ package clement.zentz.mareu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,13 +53,10 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         initRecyclerView(mReunions);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.addReu_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ReunionActivity.this, ManageReunionActivity.class);
-                intent.putExtra("IS_NEW_REUNION", true);
-                startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
-            }
+        floatingActionButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ReunionActivity.this, ManageReunionActivity.class);
+            intent.putExtra("IS_NEW_REUNION", true);
+            startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
         });
     }
 
@@ -72,12 +68,31 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.item0);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mRecyclerViewAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return true;
     }
 
+    //pb ecrasement premier élément
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.item0:
+
             case R.id.item1:
                 Collections.sort(mReunions, new ComparatorIdReu());
                 initRecyclerView(mReunions);
@@ -108,13 +123,12 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         if (MANAGE_REUNION_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
             if (data != null) {
                 Reunion currentReunion = (Reunion)data.getSerializableExtra(ManageReunionActivity.INTENT_RETOUR_MANAGE_REUNION);
-                if (currentReunion != null && currentReunion.isNewReunion()){
-                    Log.d(TAG, "onActivityResult: on récupère le résultat de l'activity : "+currentReunion.getId());
-                    currentReunion.setIsNewReunion(false);
-                    mReunions.add(currentReunion);
-                    callAddReunion(currentReunion);
-                }else{
-                    callUpdateReunion(currentReunion, mIndexReunion);
+                if (currentReunion != null){
+                    if (currentReunion.isNewReunion()){
+                        callAddReunion(currentReunion);
+                    }else {
+                        callUpdateReunion(currentReunion, mIndexReunion);
+                    }
                 }
             }
         }
@@ -122,9 +136,10 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
 
     @Override
     public void callAddReunion(Reunion reunion){
+        reunion.setIsNewReunion(false);
         mReunionApiService.addReunion(reunion);
         getReunionsFromService();
-        mRecyclerViewAdapter.notifyDataSetChanged();
+        mRecyclerViewAdapter.notifyItemInserted(reunion.getId());
     }
 
     @Override

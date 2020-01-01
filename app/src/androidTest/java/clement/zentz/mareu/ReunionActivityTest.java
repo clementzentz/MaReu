@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import clement.zentz.mareu.utils.DeleteViewAction;
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -25,6 +27,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static clement.zentz.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.core.StringContains.containsString;
@@ -38,6 +41,12 @@ public class ReunionActivityTest {
     @Rule
     public ActivityTestRule<ReunionActivity> mTestRule = new ActivityTestRule<>(ReunionActivity.class);
 
+    @Before
+    public void setup(){
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("reset")).perform(click());
+    }
+
    @Test
     public void reunionRecyclerViewList_shouldNotBeEmpty(){
         onView(withId(R.id.recyclerView)).check(matches(hasMinimumChildCount(1)));
@@ -48,7 +57,7 @@ public class ReunionActivityTest {
        onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
        onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
        onView(withId(R.id.manageReu_container)).check(matches(isDisplayed()));
-       onView(withId(R.id.idReunion_edt)).check(matches(withText("0")));
+       onView(withId(R.id.idReunion_edt)).check(matches(withText(String.valueOf(0))));
        onView(withId(R.id.sujetReunion_edt)).check(matches(withText("kotlin")));
        onView(withId(R.id.emailReunion_edt)).check(matches(withText("clement@gmail.com")));
    }
@@ -56,7 +65,7 @@ public class ReunionActivityTest {
     @Test
     public void reunionRV_deleteReunion_shouldRemoveOneItem(){
         onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, new DeleteViewAction()));
+        onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(9, new DeleteViewAction()));
         onView(withId(R.id.recyclerView)).check(withItemCount(ITEM_COUNT - 1));
     }
 
@@ -65,8 +74,8 @@ public class ReunionActivityTest {
         onView(ViewMatchers.withId(R.id.recyclerView)).check(matches(isDisplayed()));
         onView(withId(R.id.addReu_fab)).perform(ViewActions.click());
         onView(withId(R.id.manageReu_container)).check(matches(isDisplayed()));
-        onView(withId(R.id.idReunion_edt)).perform(typeText("0"));
-        onView(withId(R.id.sujetReunion_edt)).perform(typeText("Android"));
+        onView(withId(R.id.idReunion_edt)).perform(typeText("10"));
+        onView(withId(R.id.sujetReunion_edt)).perform(typeText("React"));
         onView(withId(R.id.emailReunion_edt)).perform(typeText("curie@gmail.com"));
         onView(withId(R.id.lieuReunion_spinner)).perform(click());
         onData(anything()).atPosition(0).perform(click());
@@ -79,12 +88,12 @@ public class ReunionActivityTest {
    @Test
    public void reunionActivity_UpdateOldReunion_shouldUpdateData(){
        onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
-       onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+       onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(9, click()));
        onView(withId(R.id.sujetReunion_edt)).perform(clearText());
        onView(withId(R.id.sujetReunion_edt)).perform(typeText("Android"));
        closeSoftKeyboard();
        onView(withId(R.id.updateReu_btn)).perform(ViewActions.click());
-       onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+       onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(9, click()));
        onView(withId(R.id.sujetReunion_edt)).check(matches(withText("Android")));
    }
 }

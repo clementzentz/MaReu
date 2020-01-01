@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import clement.zentz.mareu.models.Reunion;
 import clement.zentz.mareu.service.FakeReunionGenerator;
@@ -47,58 +47,39 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
 
         initViews();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         List<String> lieuxReu = new ArrayList<>();
         lieuxReu.add(FakeReunionGenerator.salle1);
         lieuxReu.add(FakeReunionGenerator.salle2);
         lieuxReu.add(FakeReunionGenerator.salle3);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lieuxReu);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lieuxReu);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lieuReunionSpinner.setAdapter(adapter);
 
         getIncomingIntent();
 
-        addReunionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getUserInputs();
-
-                Intent intent = new Intent();
-                intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
-                setResult(RESULT_OK, intent);
-                Toast.makeText(ManageReunionActivity.this, "Reunion "+mReunion.getId()+" correctement ajouté", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+        addReunionBtn.setOnClickListener(v -> {
+            getUserInputs();
+            Intent intent = new Intent();
+            intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
+            setResult(RESULT_OK, intent);
+            Toast.makeText(ManageReunionActivity.this, "Reunion "+mReunion.getId()+" correctement ajouté", Toast.LENGTH_SHORT).show();
+            finish();
         });
 
-        updateReunionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getUserInputs();
-
-                Intent intent = new Intent();
-                intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
-                setResult(RESULT_OK, intent);
-                Toast.makeText(ManageReunionActivity.this, "Informations Reunion "+mReunion.getId()+" correctement mises à jours", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+        updateReunionBtn.setOnClickListener(v -> {
+            getUserInputs();
+            Intent intent = new Intent();
+            intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
+            setResult(RESULT_OK, intent);
+            Toast.makeText(ManageReunionActivity.this, "Informations Reunion "+mReunion.getId()+" correctement mises à jours", Toast.LENGTH_SHORT).show();
+            finish();
         });
 
-        mDisplayTimePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog();
-            }
-        });
+        mDisplayTimePicker.setOnClickListener(v -> showTimePickerDialog());
 
-        mDisplayDatePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });
+        mDisplayDatePicker.setOnClickListener(v -> showDatePickerDialog());
     }
 
     private void initViews() {
