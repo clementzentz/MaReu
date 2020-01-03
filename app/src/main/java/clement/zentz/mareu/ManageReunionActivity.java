@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,7 +28,7 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     public static final String INTENT_RETOUR_MANAGE_REUNION = "INTENT_RETOUR_MANAGE_REUNION";
 
     //UI components
-    EditText idReunionEditText, sujetReunionEditText, emailReunionEditText;
+    EditText sujetReunionEditText, emailReunionEditText;
     Spinner lieuReunionSpinner;
     TextView mDisplayDatePicker, mDisplayTimePicker;
     Button addReunionBtn, updateReunionBtn;
@@ -59,23 +58,9 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
 
         getIncomingIntent();
 
-        addReunionBtn.setOnClickListener(v -> {
-            getUserInputs();
-            Intent intent = new Intent();
-            intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
-            setResult(RESULT_OK, intent);
-            Toast.makeText(ManageReunionActivity.this, "Reunion "+mReunion.getId()+" correctement ajouté", Toast.LENGTH_SHORT).show();
-            finish();
-        });
+        addReunionBtn.setOnClickListener(v -> returnReunionToMainActivity());
 
-        updateReunionBtn.setOnClickListener(v -> {
-            getUserInputs();
-            Intent intent = new Intent();
-            intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
-            setResult(RESULT_OK, intent);
-            Toast.makeText(ManageReunionActivity.this, "Informations Reunion "+mReunion.getId()+" correctement mises à jours", Toast.LENGTH_SHORT).show();
-            finish();
-        });
+        updateReunionBtn.setOnClickListener(v -> returnReunionToMainActivity());
 
         mDisplayTimePicker.setOnClickListener(v -> showTimePickerDialog());
 
@@ -83,19 +68,16 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     }
 
     private void initViews() {
-        idReunionEditText = findViewById(R.id.idReunion_edt);
         mDisplayTimePicker = findViewById(R.id.openDialogTP_txt);
         mDisplayDatePicker = findViewById(R.id.openDialogDP_txt);
         lieuReunionSpinner = findViewById(R.id.lieuReunion_spinner);
         sujetReunionEditText = findViewById(R.id.sujetReunion_edt);
         emailReunionEditText = findViewById(R.id.emailReunion_edt);
-
         addReunionBtn = findViewById(R.id.addReu_btn);
         updateReunionBtn = findViewById(R.id.updateReu_btn);
     }
 
     private void getUserInputs(){
-        mReunion.setId(Integer.parseInt(idReunionEditText.getText().toString()));
         mReunion.setHeureReunion(mDisplayTimePicker.getText().toString());
         mReunion.setDateReunion(mDisplayDatePicker.getText().toString());
         mReunion.setLieuReunion(lieuReunionSpinner.getSelectedItem().toString());
@@ -104,23 +86,29 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     }
 
     private void getIncomingIntent(){
-        if (getIntent().hasExtra("UPDATE_REUNION")){
-            mReunion = (Reunion)getIntent().getSerializableExtra("UPDATE_REUNION");
-            idReunionEditText.setText(String.valueOf(mReunion.getId()));
-            mDisplayTimePicker.setText(mReunion.getHeureReunion());
-            mDisplayDatePicker.setText(mReunion.getDateReunion());
+        if (getIntent().hasExtra("REUNION")){
+            mReunion = (Reunion)getIntent().getSerializableExtra("REUNION");
+            if (!mReunion.isNewReunion()){
+                mDisplayTimePicker.setText(mReunion.getHeureReunion());
+                mDisplayDatePicker.setText(mReunion.getDateReunion());
 
-            for (int index = 0; index < lieuReunionSpinner.getAdapter().getCount(); index++){
-                if (lieuReunionSpinner.getAdapter().getItem(index).equals(mReunion.getLieuReunion())){
-                    lieuReunionSpinner.setSelection(index);
+                for (int index = 0; index < lieuReunionSpinner.getAdapter().getCount(); index++){
+                    if (lieuReunionSpinner.getAdapter().getItem(index).equals(mReunion.getLieuReunion())){
+                        lieuReunionSpinner.setSelection(index);
+                    }
                 }
+                sujetReunionEditText.setText(mReunion.getSujetReunion());
+                emailReunionEditText.setText(mReunion.getEmail());
             }
-
-            sujetReunionEditText.setText(mReunion.getSujetReunion());
-            emailReunionEditText.setText(mReunion.getEmail());
-        }else{
-            mReunion = new Reunion();
         }
+    }
+
+    private void returnReunionToMainActivity(){
+        getUserInputs();
+        Intent intent = new Intent();
+        intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void showTimePickerDialog(){

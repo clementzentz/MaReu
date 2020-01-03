@@ -16,7 +16,7 @@ public class FakeReunionApiService implements ReunionApiService {
     @Override
     public void addReunion(Reunion reunion) {
         if (!mReunions.contains(reunion)){
-            mReunions.add(reunion.getId(), reunion);
+            mReunions.add(reunion);
         }
     }
 

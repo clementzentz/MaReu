@@ -3,7 +3,6 @@ package clement.zentz.mareu.models;
 import java.io.Serializable;
 
 public class Reunion implements Serializable {
-    private int id;
     private String dateReunion;
     private String heureReunion;
     private String lieuReunion;
@@ -11,8 +10,7 @@ public class Reunion implements Serializable {
     private String email;
     private boolean mIsNewReunion;
 
-    public Reunion(int id, String heureReunion, String dateReunion, String lieuReunion, String sujetReunion, String email, boolean isNewReunion) {
-        this.id = id;
+    public Reunion(String heureReunion, String dateReunion, String lieuReunion, String sujetReunion, String email, boolean isNewReunion) {
         this.dateReunion = dateReunion;
         this.heureReunion = heureReunion;
         this.lieuReunion = lieuReunion;
@@ -21,16 +19,8 @@ public class Reunion implements Serializable {
         this.mIsNewReunion = isNewReunion;
     }
 
-    public Reunion(){
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public Reunion(boolean isNewReunion){
+        this.mIsNewReunion = isNewReunion;
     }
 
     public String getDateReunion() {

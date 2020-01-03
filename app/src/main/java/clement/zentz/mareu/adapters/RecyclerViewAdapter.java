@@ -40,13 +40,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         holder.infoReunion.setText(lesReunions.get(position).generateTitleReu());
         holder.emailOrganisateur.setText(lesReunions.get(position).getEmail());
 
         holder.mView.setOnClickListener(v -> mActivityToRVAdapter.launchMyActivity(lesReunions.get(position), position));
 
-        holder.deleteButton.setOnClickListener(v -> mActivityToRVAdapter.callDeleteReunion(lesReunions.get(position)));
+        holder.deleteButton.setOnClickListener(v -> mActivityToRVAdapter.callDeleteReunion(lesReunions.get(position), position));
     }
 
     @Override
@@ -75,7 +75,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 }
             }
-
             FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;

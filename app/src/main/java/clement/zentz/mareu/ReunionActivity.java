@@ -2,9 +2,11 @@ package clement.zentz.mareu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,11 +55,7 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         initRecyclerView(mReunions);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.addReu_fab);
-        floatingActionButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ReunionActivity.this, ManageReunionActivity.class);
-            intent.putExtra("IS_NEW_REUNION", true);
-            startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
-        });
+        floatingActionButton.setOnClickListener(v -> launchMyActivity(new Reunion(true), mReunions.size()+1));
     }
 
     private void getReunionsFromService(){
@@ -71,6 +69,8 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
 
         MenuItem searchItem = menu.findItem(R.id.item0);
         SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -87,23 +87,21 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         return true;
     }
 
-    //pb ecrasement premier élément
+    //pb ecrasement premier élément recyclerView
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.item0:
-
             case R.id.item1:
-                Collections.sort(mReunions, new ComparatorIdReu());
-                initRecyclerView(mReunions);
+                Collections.sort(mReunions, new ComparatorSujetReu());
+                mRecyclerViewAdapter.notifyDataSetChanged();
                 return true;
             case R.id.item2:
                 Collections.sort(mReunions, new ComparatorDateReu());
-                initRecyclerView(mReunions);
+                mRecyclerViewAdapter.notifyDataSetChanged();
                 return true;
             case R.id.item3:
                 Collections.sort(mReunions, new ComparatorLieuReu());
-                initRecyclerView(mReunions);
+                mRecyclerViewAdapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -138,12 +136,13 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
     public void callAddReunion(Reunion reunion){
         reunion.setIsNewReunion(false);
         mReunionApiService.addReunion(reunion);
+        mRecyclerViewAdapter.notifyDataSetChanged();
         getReunionsFromService();
-        mRecyclerViewAdapter.notifyItemInserted(reunion.getId());
     }
 
     @Override
-    public void callDeleteReunion(Reunion reunion){
+    public void callDeleteReunion(Reunion reunion, int indexReunion){
+        Log.d(TAG, "callDeleteReunion: indexReunion = "+indexReunion);
         mReunionApiService.deleteReunion(reunion);
         getReunionsFromService();
         mRecyclerViewAdapter.notifyDataSetChanged();
@@ -151,6 +150,7 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
 
     @Override
     public void callUpdateReunion(Reunion reunion, int indexReunion) {
+        Log.d(TAG, "callUpdateReunion: indexReunion = "+indexReunion);
         mReunionApiService.updateReunion(reunion, indexReunion);
         getReunionsFromService();
         mRecyclerViewAdapter.notifyItemChanged(indexReunion);
@@ -158,9 +158,10 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
 
     @Override
     public void launchMyActivity(Reunion reunion, int indexReunion) {
+        Log.d(TAG, "launchMyActivity: indexReunion = "+indexReunion);
         mIndexReunion = indexReunion;
         Intent intent = new Intent(this, ManageReunionActivity.class);
-        intent.putExtra("UPDATE_REUNION", reunion);
+        intent.putExtra("REUNION", reunion);
         startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
     }
 
@@ -178,10 +179,10 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         }
     }
 
-    public class ComparatorIdReu implements Comparator<Reunion> {
+    public class ComparatorSujetReu implements Comparator<Reunion> {
         @Override
         public int compare(Reunion o1, Reunion o2) {
-            return Integer.compare(o1.getId(), o2.getId());
+            return o1.getSujetReunion().compareTo(o2.getSujetReunion());
         }
     }
 }

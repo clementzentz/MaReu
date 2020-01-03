@@ -26,18 +26,10 @@
                 android:text="veuillez entrer les informations concernant la reunion que que souhaitez ajouter : "/>
 
             <EditText
-                android:id="@+id/idReunion_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/welcome_text"
-                android:inputType="number"
-                android:hint="identifiant reunion"/>
-
-            <EditText
                 android:id="@+id/sujetReunion_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/idReunion_edt"
+                app:layout_constraintTop_toBottomOf="@id/welcome_text"
                 android:hint="sujet reunion"/>
 
             <EditText
@@ -45,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/sujetReunion_edt"
-                android:hint="email organisateur"/>
+                android:hint="email organisateur"
+                android:inputType="textWebEmailAddress"/>
 
             <TextView
                 android:id="@+id/lieuReu_txt"
