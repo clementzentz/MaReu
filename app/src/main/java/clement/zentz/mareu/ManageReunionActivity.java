@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -99,6 +100,17 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
                 }
                 sujetReunionEditText.setText(mReunion.getSujetReunion());
                 emailReunionEditText.setText(mReunion.getEmail());
+            }else {
+                SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar todayDate = Calendar.getInstance();
+                String todayDateInString = sdfDate.format(todayDate.getTime());
+
+                SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+                Calendar todayTime = Calendar.getInstance();
+                String todayTimeInString = sdfTime.format(todayTime.getTime());
+
+                mDisplayDatePicker.setText(todayDateInString);
+                mDisplayTimePicker.setText(todayTimeInString);
             }
         }
     }

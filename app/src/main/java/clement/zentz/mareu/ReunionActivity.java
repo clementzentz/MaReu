@@ -136,14 +136,14 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
     public void callAddReunion(Reunion reunion){
         reunion.setIsNewReunion(false);
         mReunionApiService.addReunion(reunion);
-        mRecyclerViewAdapter.notifyDataSetChanged();
         getReunionsFromService();
+        mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void callDeleteReunion(Reunion reunion, int indexReunion){
+    public void callDeleteReunion(int indexReunion){
         Log.d(TAG, "callDeleteReunion: indexReunion = "+indexReunion);
-        mReunionApiService.deleteReunion(reunion);
+        mReunionApiService.deleteReunion(indexReunion);
         getReunionsFromService();
         mRecyclerViewAdapter.notifyDataSetChanged();
     }

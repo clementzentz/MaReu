@@ -21,9 +21,9 @@ public class FakeReunionApiService implements ReunionApiService {
     }
 
     @Override
-    public void deleteReunion(Reunion reunion) {
-        if (reunion != null){
-            mReunions.remove(reunion);
+    public void deleteReunion(int index) {
+        if (mReunions.get(index) != null){
+            mReunions.remove(index);
         }
     }
 

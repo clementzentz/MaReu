@@ -7,6 +7,6 @@ import clement.zentz.mareu.models.Reunion;
 public interface ReunionApiService {
     List<Reunion> getReunions();
     void addReunion(Reunion reunion);
-    void deleteReunion(Reunion reunion);
+    void deleteReunion(int index);
     void updateReunion(Reunion reunion, int indexReunion);
 }
