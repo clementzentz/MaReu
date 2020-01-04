@@ -44,11 +44,11 @@ public class FakeReunionApiServiceTest {
     @Test
     public void deleteReunion() {
         //Arrange
-        Reunion reunionToDelete = mService.getReunions().get(0);
+        int indexReunionToDelete = mService.getReunions().indexOf(mService.getReunions().get(0));
         //Act
-        mService.deleteReunion(reunionToDelete);
+        mService.deleteReunion(indexReunionToDelete);
         //Assert
-        assertFalse(mService.getReunions().contains(reunionToDelete));
+        assertFalse(mService.getReunions().contains(indexReunionToDelete));
     }
 
     @Test
