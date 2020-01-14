@@ -39,6 +39,8 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
 
     public static final int MANAGE_REUNION_ACTIVITY_REQUEST_CODE = 21;
 
+    public static final String REUNION_INTENT = "REUNION_INTENT";
+
     private static final String TAG = "ReunionActivity";
 
     @Override
@@ -120,7 +122,7 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         super.onActivityResult(requestCode, resultCode, data);
         if (MANAGE_REUNION_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
             if (data != null) {
-                Reunion currentReunion = (Reunion)data.getSerializableExtra(ManageReunionActivity.INTENT_RETOUR_MANAGE_REUNION);
+                Reunion currentReunion = (Reunion)data.getSerializableExtra(ManageReunionActivity.INTENT_RETURN_MANAGE_REUNION);
                 if (currentReunion != null){
                     if (currentReunion.isNewReunion()){
                         callAddReunion(currentReunion);
@@ -161,7 +163,7 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         Log.d(TAG, "launchMyActivity: indexReunion = "+indexReunion);
         mIndexReunion = indexReunion;
         Intent intent = new Intent(this, ManageReunionActivity.class);
-        intent.putExtra("REUNION", reunion);
+        intent.putExtra(REUNION_INTENT, reunion);
         startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
     }
 

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,7 +27,7 @@ import clement.zentz.mareu.service.FakeReunionGenerator;
 
 public class ManageReunionActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    public static final String INTENT_RETOUR_MANAGE_REUNION = "INTENT_RETOUR_MANAGE_REUNION";
+    public static final String INTENT_RETURN_MANAGE_REUNION = "INTENT_RETURN_MANAGE_REUNION";
 
     //UI components
     EditText sujetReunionEditText, emailReunionEditText;
@@ -87,9 +88,10 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     }
 
     private void getIncomingIntent(){
-        if (getIntent().hasExtra("REUNION")){
-            mReunion = (Reunion)getIntent().getSerializableExtra("REUNION");
+        if (getIntent().hasExtra(ReunionActivity.REUNION_INTENT)){
+            mReunion = (Reunion)getIntent().getSerializableExtra(ReunionActivity.REUNION_INTENT);
             if (!mReunion.isNewReunion()){
+                addReunionBtn.setVisibility(View.GONE);
                 mDisplayTimePicker.setText(mReunion.getHeureReunion());
                 mDisplayDatePicker.setText(mReunion.getDateReunion());
 
@@ -118,7 +120,7 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     private void returnReunionToMainActivity(){
         getUserInputs();
         Intent intent = new Intent();
-        intent.putExtra("INTENT_RETOUR_MANAGE_REUNION", mReunion);
+        intent.putExtra(INTENT_RETURN_MANAGE_REUNION, mReunion);
         setResult(RESULT_OK, intent);
         finish();
     }
