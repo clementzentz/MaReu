@@ -103,6 +103,7 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
                 sujetReunionEditText.setText(mReunion.getSujetReunion());
                 emailReunionEditText.setText(mReunion.getEmail());
             }else {
+                updateReunionBtn.setVisibility(View.GONE);
                 SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                 Calendar todayDate = Calendar.getInstance();
                 String todayDateInString = sdfDate.format(todayDate.getTime());
