@@ -6,7 +6,7 @@ import java.util.List;
 
 import clement.zentz.mareu.models.Reunion;
 
-public class ListTest {
+public class ListTestUtil {
 
     private static final String salle1 = "Laboratoire", salle2 = "Amphi", salle3 = "Refectoire";
 

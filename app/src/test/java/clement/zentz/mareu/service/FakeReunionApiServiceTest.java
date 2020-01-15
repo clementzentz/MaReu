@@ -12,7 +12,7 @@ import java.util.Objects;
 import clement.zentz.mareu.ReunionActivity;
 import clement.zentz.mareu.di.DI;
 import clement.zentz.mareu.models.Reunion;
-import clement.zentz.mareu.service.util.ListTest;
+import clement.zentz.mareu.service.util.ListTestUtil;
 
 import static clement.zentz.mareu.service.FakeReunionGenerator.salle2;
 import static org.junit.Assert.assertArrayEquals;
@@ -80,7 +80,7 @@ public class FakeReunionApiServiceTest {
     public void testSortReunionsByDate() {
         //Arrange
         List<Reunion> actual = mService.getReunions();
-        List<Reunion> expected = ListTest.getReunionsTestSortedByDate();
+        List<Reunion> expected = ListTestUtil.getReunionsTestSortedByDate();
         //Act
         Collections.sort(actual, new ReunionActivity.ComparatorDateReu());
         //Assert
@@ -92,7 +92,7 @@ public class FakeReunionApiServiceTest {
     public void testSortReunionsByLieu() {
         //Arrange
         List<Reunion> actual = mService.getReunions();
-        List<Reunion> expected = ListTest.getReunionsTestSortedByLieu();
+        List<Reunion> expected = ListTestUtil.getReunionsTestSortedByLieu();
         //Act
         Collections.sort(actual, new ReunionActivity.ComparatorLieuReu());
         //Assert
@@ -104,7 +104,7 @@ public class FakeReunionApiServiceTest {
     public void testSortReunionsReset() {
         //Arrange
         List<Reunion> actual = mService.getReunions();
-        List<Reunion> expected = ListTest.getReunionsTestSortedReset();
+        List<Reunion> expected = ListTestUtil.getReunionsTestSortedReset();
         //Act
         Collections.sort(actual, new ReunionActivity.ComparatorSujetReu());
         //Assert

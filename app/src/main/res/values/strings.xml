@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">MaReu</string>
+    <string name="e_mail">e-mail</string>
+    <string name="trash_icon">trash_icon</string>
+    <string name="veuillez_entrer_les_informations_concernant_la_reunion_que_vous_souhaitez_ajouter">veuillez entrer les informations concernant la reunion que vous souhaitez ajouter :</string>
+    <string name="sujet_reunion">sujet reunion</string>
+    <string name="email_organisateur">email organisateur</string>
+    <string name="lieux_reunion">lieux reunion :</string>
+    <string name="lieu_reunion">lieu reunion</string>
+    <string name="open_time_picker">open time picker.</string>
+    <string name="open_date_picker">open date picker.</string>
+    <string name="ajouter">ajouter</string>
+    <string name="update">update</string>
+    <string name="trier_par_date">trier par date</string>
+    <string name="trier_par_lieu">trier par lieu</string>
+    <string name="item0">item0</string>
+    <string name="reset">reset</string>
 </resources>

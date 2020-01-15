@@ -97,14 +97,17 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         switch (item.getItemId()){
             case R.id.item1:
                 Collections.sort(mReunions, new ComparatorSujetReu());
+                getReunionsFromService();
                 mRecyclerViewAdapter.notifyDataSetChanged();
                 return true;
             case R.id.item2:
                 Collections.sort(mReunions, new ComparatorDateReu());
+                getReunionsFromService();
                 mRecyclerViewAdapter.notifyDataSetChanged();
                 return true;
             case R.id.item3:
                 Collections.sort(mReunions, new ComparatorLieuReu());
+                getReunionsFromService();
                 mRecyclerViewAdapter.notifyDataSetChanged();
                 return true;
             default:

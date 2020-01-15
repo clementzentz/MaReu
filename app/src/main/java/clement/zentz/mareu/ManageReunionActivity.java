@@ -40,6 +40,7 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
 
     //vars
     Reunion mReunion;
+    String messageUtilisateur = "veuillez entrer une adresse email valide, exemple : adresse@email.com";
 
     public ManageReunionActivity() {
     }
@@ -129,7 +130,7 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
             setResult(RESULT_OK, intent);
             finish();
         }else{
-            Toast.makeText(this, "veuillez entrer une adresse email valide, exemple : adresse@email.com", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, messageUtilisateur, Toast.LENGTH_LONG).show();
         }
     }
 

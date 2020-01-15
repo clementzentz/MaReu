@@ -23,21 +23,21 @@
                 android:padding="2dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="veuillez entrer les informations concernant la reunion que que souhaitez ajouter : "/>
+                android:text="@string/veuillez_entrer_les_informations_concernant_la_reunion_que_vous_souhaitez_ajouter"/>
 
             <EditText
                 android:id="@+id/sujetReunion_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/welcome_text"
-                android:hint="sujet reunion"/>
+                android:hint="@string/sujet_reunion"/>
 
             <EditText
                 android:id="@+id/emailReunion_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/sujetReunion_edt"
-                android:hint="email organisateur"
+                android:hint="@string/email_organisateur"
                 android:inputType="textWebEmailAddress"/>
 
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="lieux reunion : "
+                android:text="@string/lieux_reunion"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailReunion_edt"
@@ -55,7 +55,7 @@
                 android:id="@+id/lieuReunion_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="lieu reunion"
+                android:hint="@string/lieu_reunion"
                 app:layout_constraintTop_toBottomOf="@id/emailReunion_edt"
                 app:layout_constraintBottom_toBottomOf="@id/lieuReu_txt"
                 app:layout_constraintStart_toEndOf="@id/lieuReu_txt"
@@ -68,7 +68,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="open time picker."
+                android:text="@string/open_time_picker"
                 app:layout_constraintTop_toBottomOf="@id/lieuReu_txt"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/lieuReu_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textSize="20sp"
-                android:text="open date picker."
+                android:text="@string/open_date_picker"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
                 android:textAlignment="viewEnd"/>
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="ajouter"
+                android:text="@string/ajouter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/openDialogTP_txt"
                 android:background="@color/colorPrimary"
@@ -102,7 +102,7 @@
                 android:id="@+id/updateReu_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="update"
+                android:text="@string/update"
                 app:layout_constraintTop_toBottomOf="@+id/openDialogDP_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="15dp"
