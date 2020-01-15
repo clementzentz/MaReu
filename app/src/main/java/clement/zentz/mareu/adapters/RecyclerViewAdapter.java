@@ -46,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.mView.setOnClickListener(v -> mActivityToRVAdapter.launchMyActivity(lesReunions.get(position), position));
 
-        holder.deleteButton.setOnClickListener(v -> mActivityToRVAdapter.callDeleteReunion(position));
+        holder.deleteButton.setOnClickListener(v -> mActivityToRVAdapter.callDeleteReunion(lesReunions.get(position)));
     }
 
     @Override

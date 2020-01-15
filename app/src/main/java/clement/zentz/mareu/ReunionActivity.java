@@ -89,7 +89,9 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         return true;
     }
 
-    //pb ecrasement premier élément recyclerView
+    //utiliser des util (facultatif)
+    //pas de hardcode string (facultatif)
+    //tester les saisies utilisateurs
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -143,9 +145,8 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
     }
 
     @Override
-    public void callDeleteReunion(int indexReunion){
-        Log.d(TAG, "callDeleteReunion: indexReunion = "+indexReunion);
-        mReunionApiService.deleteReunion(indexReunion);
+    public void callDeleteReunion(Reunion reunion){
+        mReunionApiService.deleteReunion(reunion);
         getReunionsFromService();
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
@@ -167,21 +168,21 @@ public class ReunionActivity extends AppCompatActivity implements ActivityToRVAd
         startActivityForResult(intent, MANAGE_REUNION_ACTIVITY_REQUEST_CODE);
     }
 
-    public class ComparatorDateReu implements Comparator<Reunion> {
+    public static class ComparatorDateReu implements Comparator<Reunion> {
         @Override
         public int compare(Reunion o1, Reunion o2) {
             return o1.getDateReunion().compareTo(o2.getDateReunion());
         }
     }
 
-    public class ComparatorLieuReu implements Comparator<Reunion> {
+    public static class ComparatorLieuReu implements Comparator<Reunion> {
         @Override
         public int compare(Reunion o1, Reunion o2) {
             return o1.getLieuReunion().compareTo(o2.getLieuReunion());
         }
     }
 
-    public class ComparatorSujetReu implements Comparator<Reunion> {
+    public static class ComparatorSujetReu implements Comparator<Reunion> {
         @Override
         public int compare(Reunion o1, Reunion o2) {
             return o1.getSujetReunion().compareTo(o2.getSujetReunion());

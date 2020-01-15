@@ -1,5 +1,7 @@
 package clement.zentz.mareu.models;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Reunion implements Serializable {
@@ -73,5 +75,18 @@ public class Reunion implements Serializable {
 
     public String generateTitleReu(){
         return sujetReunion+" - "+heureReunion+" - "+email.substring(0, email.indexOf("@"));
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null){
+            return false;
+        }if (getClass() != obj.getClass()){
+            return false;
+        }
+        Reunion reunion = (Reunion) obj;
+        return reunion.getSujetReunion().equals(getSujetReunion())
+                && reunion.getDateReunion().equals(getDateReunion())
+                && reunion.getLieuReunion().equals(getLieuReunion());
     }
 }

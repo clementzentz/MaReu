@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import clement.zentz.mareu.models.Reunion;
 import clement.zentz.mareu.service.FakeReunionGenerator;
@@ -120,10 +123,14 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
 
     private void returnReunionToMainActivity(){
         getUserInputs();
-        Intent intent = new Intent();
-        intent.putExtra(INTENT_RETURN_MANAGE_REUNION, mReunion);
-        setResult(RESULT_OK, intent);
-        finish();
+        if (checkEmail(mReunion.getEmail())){
+            Intent intent = new Intent();
+            intent.putExtra(INTENT_RETURN_MANAGE_REUNION, mReunion);
+            setResult(RESULT_OK, intent);
+            finish();
+        }else{
+            Toast.makeText(this, "veuillez entrer une adresse email valide, exemple : adresse@email.com", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void showTimePickerDialog(){
@@ -156,5 +163,10 @@ public class ManageReunionActivity extends AppCompatActivity implements DatePick
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mReunion.setDateReunion(dayOfMonth+"/"+(month+1)+"/"+year);
         mDisplayDatePicker.setText(mReunion.getDateReunion());
+    }
+
+    private boolean checkEmail(String email){
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 }
