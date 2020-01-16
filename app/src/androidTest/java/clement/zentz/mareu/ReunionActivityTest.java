@@ -117,8 +117,8 @@ public class ReunionActivityTest {
        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
        onView(withText("reset")).perform(click());
        onView(withId(R.id.recyclerView)).check(matches(recyclerViewAtPositionOnView(0, withText("AWS - 11:10 - andrea"), R.id.sujetReu_txt)));
-//       onView(withId(R.id.recyclerView)).check(matches(recyclerViewAtPositionOnView(1, withText("DNS Load Balancing - 17:05 - sarah"), R.id.sujetReu_txt)));
-//       onView(withId(R.id.recyclerView)).check(matches(recyclerViewAtPositionOnView(2, withText("Django - 12:25 - alan"), R.id.sujetReu_txt)));
+       onView(withId(R.id.recyclerView)).check(matches(recyclerViewAtPositionOnView(1, withText("DNS Load Balancing - 17:05 - sarah"), R.id.sujetReu_txt)));
+       onView(withId(R.id.recyclerView)).check(matches(recyclerViewAtPositionOnView(2, withText("Django - 12:25 - alan"), R.id.sujetReu_txt)));
    }
 
     @Test
